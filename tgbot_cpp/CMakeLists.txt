@@ -1,11 +1,6 @@
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
-find_package(Boost COMPONENTS system program_options locale REQUIRED)
-find_package(CURL)
-if (CURL_FOUND)
-    include_directories(${CURL_INCLUDE_DIRS})
-    add_definitions(-DHAVE_CURL)
-endif()
+find_package(Boost 1.76.0 REQUIRED COMPONENTS system program_options locale REQUIRED)
 
 include_directories(
     ${OPENSSL_INCLUDE_DIR} 

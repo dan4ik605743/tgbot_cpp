@@ -14,11 +14,8 @@ function(initialize_submodule DIRECTORY)
     endif()
 endfunction(initialize_submodule)
 
-find_package(CURL)
-if (CURL_FOUND)
-    include_directories(${CURL_INCLUDE_DIRS})
-    add_definitions(-DHAVE_CURL)
-endif()
+find_package(CURL REQUIRED)
+include_directories(${CURL_INCLUDE_DIRS})
 
 initialize_submodule(modules/tgbot-cpp)
 add_subdirectory(tgbot-cpp)
