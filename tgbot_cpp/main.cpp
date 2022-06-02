@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "course/course.hpp"
+#include "currency/currency.hpp"
 #include "weather/weather.hpp"
 
 using namespace std;

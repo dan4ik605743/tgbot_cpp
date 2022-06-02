@@ -17,7 +17,7 @@ add_executable(
     main.cpp 
     network/network.cpp 
     weather/weather.cpp
-    course/course.cpp
+    currency/currency.cpp
 )
 
 target_link_libraries(

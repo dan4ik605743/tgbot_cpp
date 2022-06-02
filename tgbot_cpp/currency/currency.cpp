@@ -1,4 +1,4 @@
-#include "course.hpp"
+#include "currency.hpp"
 #include "network/network.hpp"
 
 #include <boost/json.hpp>

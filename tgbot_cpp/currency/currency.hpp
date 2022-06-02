@@ -1,5 +1,5 @@
-#ifndef COURSE_HPP
-#define COURSE_HPP
+#ifndef CURRENCY_HPP
+#define CURRENCY_HPP
 
 #include <boost/json/value.hpp>
 #include <string>
