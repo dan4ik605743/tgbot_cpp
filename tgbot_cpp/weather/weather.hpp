@@ -6,15 +6,15 @@
 
 class weather {
    public:
-    weather(const std::string api);
+    weather(const std::string& api);
 
     std::string get_city();
-    void set_city(const std::string city);
+    void set_city(const std::string& city);
     bool check_city();
 
     void refresh();
 
-    std::string get_weath();
+    std::string get_weather();
     int get_temp();
     float get_wind();
 

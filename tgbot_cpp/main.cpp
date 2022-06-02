@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
             bot.getApi().sendMessage(
                 message->chat->id,
                 "Погода в городе: " + weather.get_city() + '\n' +
-                    weather.get_weath() + "\nтемпература " +
+                    weather.get_weather() + "\nтемпература " +
                     to_string(weather.get_temp()) + "°C\nветер " +
                     to_string(weather.get_wind()) + " m/h");
             get_weather_city = false;

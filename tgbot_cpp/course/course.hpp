@@ -8,7 +8,7 @@ class course {
    public:
     course();
 
-    void set_valute(const std::string valute);
+    void set_valute(const std::string& valute);
     bool check_valute();
 
     void refresh();

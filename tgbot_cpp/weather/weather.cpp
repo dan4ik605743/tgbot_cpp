@@ -3,7 +3,7 @@
 
 #include <boost/json.hpp>
 
-weather::weather(const std::string api) {
+weather::weather(const std::string& api) {
     this->api = api;
 }
 
@@ -11,7 +11,7 @@ std::string weather::get_city() {
     return boost::json::value_to<std::string>(parsed_data.at("name"));
 }
 
-void weather::set_city(const std::string city) {
+void weather::set_city(const std::string& city) {
     this->city = city;
 
     url =
@@ -33,7 +33,7 @@ void weather::refresh() {
     parsed_data = boost::json::parse(curl_data);
 }
 
-std::string weather::get_weath() {
+std::string weather::get_weather() {
     return boost::json::value_to<std::string>(
         parsed_data.at("weather").at(0).at("description"));
 }

@@ -7,7 +7,7 @@ course::course() {
     url = "https://www.cbr-xml-daily.ru/daily_json.js";
 }
 
-void course::set_valute(const std::string valute) {
+void course::set_valute(const std::string& valute) {
     this->valute = valute;
 }
 
