@@ -11,7 +11,7 @@ void course::set_valute(const std::string& valute) {
     this->valute = valute;
 }
 
-bool course::check_valute() {
+bool course::check_valute() const {
     try {
         boost::json::value_to<std::string>(
             parsed_data.at("Valute").at(valute).at("ID"));
@@ -26,7 +26,7 @@ void course::refresh() {
     parsed_data = boost::json::parse(curl_data);
 }
 
-float course::get_course() {
+float course::get_course() const {
     return boost::json::value_to<float>(
         parsed_data.at("Valute").at(valute).at("Value"));
 }

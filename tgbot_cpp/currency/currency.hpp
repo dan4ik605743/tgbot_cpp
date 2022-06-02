@@ -9,11 +9,11 @@ class course {
     course();
 
     void set_valute(const std::string& valute);
-    bool check_valute();
+    bool check_valute() const;
 
     void refresh();
 
-    float get_course();
+    float get_course() const;
 
    private:
     std::string curl_data;

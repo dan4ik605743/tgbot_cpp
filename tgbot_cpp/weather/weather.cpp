@@ -7,7 +7,7 @@ weather::weather(const std::string& api) {
     this->api = api;
 }
 
-std::string weather::get_city() {
+std::string weather::get_city() const {
     return boost::json::value_to<std::string>(parsed_data.at("name"));
 }
 
@@ -20,7 +20,7 @@ void weather::set_city(const std::string& city) {
         city + "&appid=" + api + "&lang=ru";
 }
 
-bool weather::check_city() {
+bool weather::check_city() const {
     if (parsed_data.at("cod").is_int64()) {
         return true;
     } else {
@@ -33,17 +33,17 @@ void weather::refresh() {
     parsed_data = boost::json::parse(curl_data);
 }
 
-std::string weather::get_weather() {
+std::string weather::get_weather() const {
     return boost::json::value_to<std::string>(
         parsed_data.at("weather").at(0).at("description"));
 }
 
-int weather::get_temp() {
+int weather::get_temp() const {
     // kelvin_to_celsius
     return (boost::json::value_to<float>(parsed_data.at("main").at("temp"))) -
            273;
 }
 
-float weather::get_wind() {
+float weather::get_wind() const {
     return boost::json::value_to<float>(parsed_data.at("wind").at("speed"));
 }
