@@ -52,7 +52,6 @@ int main(int argc, char* argv[]) {
         }
 
         boost::program_options::notify(vm);
-
     } catch (const exception& ex) {
         cout << "Error: " << ex.what() << '\n';
         return 1;
