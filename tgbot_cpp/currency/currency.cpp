@@ -16,7 +16,7 @@ bool course::check_valute() const {
         boost::json::value_to<std::string>(
             parsed_data.at("Valute").at(valute).at("ID"));
         return true;
-    } catch (std::exception) {
+    } catch (const std::exception&) {
         return false;
     }
 }

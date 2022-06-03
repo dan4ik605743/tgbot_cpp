@@ -15,6 +15,12 @@ add_executable(
     currency/currency.cpp
 )
 
+target_compile_options(
+    ${PROJECT_NAME} PRIVATE
+    -Wall -Werror -Wextra -Winit-self -Wredundant-decls
+    -Wpedantic -flto=auto -O3
+)
+
 target_link_libraries(
     ${PROJECT_NAME} 
     PRIVATE TgBot
