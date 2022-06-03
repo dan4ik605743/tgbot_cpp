@@ -3,18 +3,16 @@
 
 # tgbot_cpp
 
-Бот для телеграма написанный на с++ с использованием библиотеки для работы с api телеграма <a href="https://github.com/reo7sp/tgbot-cpp">tgbot-cpp</a>.
-Умеет высылать данные о <a href="https://openweathermap.org/">погоде</a> и <a href="https://www.cbr.ru/currency_base/daily/">курса валют</a>.
+A telegram bot written in C++ using the <a href="https://github.com/reo7sp/tgbot-cpp">tgbot-cpp</a> telegram API library. Able to send data about the <a href="https://openweathermap.org/">weather</a> and <a href="https://www.cbr.ru/currency_base/daily/">exchange rates</a>.
 
-# Зависимости для сборки
-Зависимости для сборки:
+# Dependencies
 * boost(>=1.76) 
 * cmake 
 * openssl 
 * curl 
 * zlib 
 
-# Сборка
+# Bot compilation
 ```
 git clone https://github.com/dan4ik605743/tgbot_cpp
 cd tgbot_cpp
@@ -23,11 +21,8 @@ cmake ../
 cmake --build .
 ```
 
-# Запуск
-При запуске нужно ввести 2 параметра, ключ апи от openweathermap и сам токен бота.
-Пример использование:
+# Usage
+At startup, you need to enter 2 parameters, the api key from openweathermap and the bot token itself.
 ```
-./tgbot -a ~/api.txt -t ~/token.txt
+tgbot -a ~/api.txt -t ~/token.txt
 ```
-
-Бот запущен, теперь можно им пользоваться.
