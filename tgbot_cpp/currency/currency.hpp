@@ -8,6 +8,7 @@ class course {
    public:
     course();
 
+    std::string get_valute();
     void set_valute(const std::string& valute);
     bool check_valute() const;
 
