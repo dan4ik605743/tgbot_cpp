@@ -2,31 +2,56 @@ find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(Boost 1.76.0 REQUIRED COMPONENTS system program_options locale REQUIRED)
 
-include_directories(
-    ${OPENSSL_INCLUDE_DIR} 
-    ${Boost_INCLUDE_DIR}
-)
-
-add_executable(
-    ${PROJECT_NAME} 
+set(
+    SRC_LIST
     main.cpp 
     network/network.cpp 
     weather/weather.cpp
     currency/currency.cpp
+    bot_options/bot_options.cpp
 )
 
-target_compile_options(
-    ${PROJECT_NAME} PRIVATE
-    -Wall -Wextra -Winit-self -Wredundant-decls
-    -Wpedantic -flto=auto -O3
-    # -Werror
-)
-
-target_link_libraries(
-    ${PROJECT_NAME} 
+set(
+    LIB_LIST
     PRIVATE TgBot
     ${CMAKE_THREAD_LIBS_INIT} 
     ${OPENSSL_LIBRARIES} 
     ${Boost_LIBRARIES} 
     ${CURL_LIBRARIES}
+)
+
+set(
+    FLAG_LIST
+    -Wall 
+    -Werror 
+    -Wextra 
+    -Winit-self 
+    -Wredundant-decls
+    -Wpedantic 
+    -flto=auto -O3
+)
+
+include_directories(
+    ${OPENSSL_INCLUDE_DIR} 
+    ${Boost_INCLUDE_DIR}
+)
+
+if(TGBOT_ENABLE_INLINE_KEYBOARD)
+    set(SRC_LIST ${SRC_LIST} inline_keyboard/inline_keyboard.cpp)
+    add_definitions(-DTGBOT_ENABLE_INLINE_KEYBOARD)
+endif()
+
+add_executable(
+    ${PROJECT_NAME} 
+    ${SRC_LIST}
+)
+
+target_compile_options(
+    ${PROJECT_NAME} PRIVATE
+    ${FLAG_LIST}
+)
+
+target_link_libraries(
+    ${PROJECT_NAME} 
+    ${LIB_LIST}
 )
