@@ -11,7 +11,7 @@
 #endif
 
 #include "bot_options/bot_options.hpp"
-#include "currency/currency.hpp"
+#include "course/course.hpp"
 #include "tgbot/tgbot.h"
 #include "weather/weather.hpp"
 

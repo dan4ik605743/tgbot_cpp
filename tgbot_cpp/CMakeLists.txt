@@ -1,5 +1,6 @@
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
+find_package(CURL REQUIRED)
 find_package(Boost 1.76.0 REQUIRED COMPONENTS system program_options locale REQUIRED)
 
 set(
@@ -7,7 +8,7 @@ set(
     main.cpp 
     network/network.cpp 
     weather/weather.cpp
-    currency/currency.cpp
+    course/course.cpp
     bot_options/bot_options.cpp
 )
 
@@ -54,4 +55,10 @@ target_compile_options(
 target_link_libraries(
     ${PROJECT_NAME} 
     ${LIB_LIST}
+)
+
+include(GNUInstallDirs)
+install(
+    TARGETS ${PROJECT_NAME}        
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

@@ -1,7 +1,7 @@
 #ifndef BOT_OPTIONS_HPP
 #define BOT_OPTIONS_HPP
 
-#include "currency/currency.hpp"
+#include "course/course.hpp"
 #include "tgbot/Bot.h"
 #include "tgbot/net/TgLongPoll.h"
 #include "tgbot/types/InlineKeyboardMarkup.h"

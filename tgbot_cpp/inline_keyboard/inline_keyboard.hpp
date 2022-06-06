@@ -1,7 +1,7 @@
 #ifndef INLINE_KEYBOARD_HPP
 #define INLINE_KEYBOARD_HPP
 
-#include "currency/currency.hpp"
+#include "course/course.hpp"
 #include "tgbot/Bot.h"
 #include "tgbot/net/TgLongPoll.h"
 #include "tgbot/types/InlineKeyboardButton.h"

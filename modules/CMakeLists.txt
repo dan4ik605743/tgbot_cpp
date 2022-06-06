@@ -14,8 +14,5 @@ function(initialize_submodule DIRECTORY)
     endif()
 endfunction(initialize_submodule)
 
-find_package(CURL REQUIRED)
-include_directories(${CURL_INCLUDE_DIRS})
-
 initialize_submodule(modules/tgbot-cpp)
 add_subdirectory(tgbot-cpp)

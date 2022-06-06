@@ -7,11 +7,11 @@ set(
     SRC_LIST
     main.cpp
     weather_test.cpp
-    currency_test.cpp
+    course_test.cpp
     network_test.cpp
     ../tgbot_cpp/network/network.cpp 
     ../tgbot_cpp/weather/weather.cpp
-    ../tgbot_cpp/currency/currency.cpp
+    ../tgbot_cpp/course/course.cpp
 )
 
 set(

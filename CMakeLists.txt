@@ -17,7 +17,6 @@ add_subdirectory(modules)
 add_subdirectory(tgbot_cpp)
 
 if (ENABLE_TESTS)
-    message(STATUS "Building of tests is enabled")
     enable_testing()
     add_subdirectory(tests)
 endif()
