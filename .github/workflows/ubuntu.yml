@@ -21,3 +21,5 @@ jobs:
 
     - name: Run CMake
       run: mkdir build && cd build && cmake .. && cmake --build .
+    - name: Run CTest
+      run: cd build && cmake -DENABLE_TESTS=true .. && cmake --build . && ctest .
