@@ -33,6 +33,8 @@ struct bot_options {
                             std::string& weather_city,
                             std::string& course_valute,
                             const std::vector<std::string>& bot_commands);
+
+    static void start(TgBot::Bot& bot, TgBot::TgLongPoll& long_poll);
 };
 
 #endif

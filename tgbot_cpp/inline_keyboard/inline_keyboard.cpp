@@ -1,38 +1,6 @@
 #include "inline_keyboard/inline_keyboard.hpp"
 #include "tgbot/types/CallbackQuery.h"
 
-void inline_keyboard::check_input(
-    TgBot::Bot& bot,
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
-    bool& get_weather_with_buttons,
-    bool& get_course_with_buttons,
-    weather& weather,
-    course& course) {
-    bot.getEvents().onCallbackQuery([&](TgBot::CallbackQuery::Ptr query) {
-        if (StringTools::startsWith(query->data, "krasnoyarsk_weather")) {
-            get_weather_with_buttons = true;
-            weather.set_city("Красноярск");
-            weather.refresh();
-            bot.getApi().sendMessage(
-                query->message->chat->id,
-                "Погода в городе: " + weather.get_city() + '\n' +
-                    weather.get_weather() + "\nтемпература " +
-                    std::to_string(weather.get_temp()) + "°C\nветер " +
-                    std::to_string(weather.get_wind()) + " m/h",
-                false, 0, keyboard_weather, "Markdown");
-        } else if (StringTools::startsWith(query->data, "usd_valute")) {
-            get_course_with_buttons = true;
-            course.set_valute("USD");
-            course.refresh();
-            bot.getApi().sendMessage(
-                query->message->chat->id,
-                "USD : " + std::to_string(course.get_course()) + " ₽", false,
-                0, keyboard_course, "Markdown");
-        }
-    });
-}
-
 void inline_keyboard::init_keyboard(
     TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
     TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
@@ -121,6 +89,38 @@ void inline_keyboard::course_command(
                                          "Введена неверная валюта");
                 get_course_valute = false;
             }
+        }
+    });
+}
+
+void inline_keyboard::check_input(
+    TgBot::Bot& bot,
+    TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
+    TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
+    bool& get_weather_with_buttons,
+    bool& get_course_with_buttons,
+    weather& weather,
+    course& course) {
+    bot.getEvents().onCallbackQuery([&](TgBot::CallbackQuery::Ptr query) {
+        if (StringTools::startsWith(query->data, "krasnoyarsk_weather")) {
+            get_weather_with_buttons = true;
+            weather.set_city("Красноярск");
+            weather.refresh();
+            bot.getApi().sendMessage(
+                query->message->chat->id,
+                "Погода в городе: " + weather.get_city() + '\n' +
+                    weather.get_weather() + "\nтемпература " +
+                    std::to_string(weather.get_temp()) + "°C\nветер " +
+                    std::to_string(weather.get_wind()) + " m/h",
+                false, 0, keyboard_weather, "Markdown");
+        } else if (StringTools::startsWith(query->data, "usd_valute")) {
+            get_course_with_buttons = true;
+            course.set_valute("USD");
+            course.refresh();
+            bot.getApi().sendMessage(
+                query->message->chat->id,
+                "USD : " + std::to_string(course.get_course()) + " ₽", false,
+                0, keyboard_course, "Markdown");
         }
     });
 }

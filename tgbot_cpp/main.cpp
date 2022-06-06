@@ -23,7 +23,7 @@ vector<string> bot_commands = {"start", "help", "weather", "course"};
 int main(int argc, char* argv[]) {
     // Bot setup
     boost::locale::generator gen;
-    std::locale::global(gen(""));
+    locale::global(gen(""));
 
     string bot_token_str;
     string weather_api_str;
@@ -62,11 +62,6 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-#ifdef TGBOT_ENABLE_INLINE_KEYBOARD
-    bool get_weather_with_buttons = false;
-    bool get_course_with_buttons = false;
-#endif
-
     weather weather(weather_api_str);
     bool get_weather_city = false;
     string weather_city;
@@ -81,8 +76,11 @@ int main(int argc, char* argv[]) {
     // Commands init
     bot_options::init_commands(bot);
 
-    // Inline_keyboard setup
+    // Inline_keyboard init
 #ifdef TGBOT_ENABLE_INLINE_KEYBOARD
+    bool get_weather_with_buttons = false;
+    bool get_course_with_buttons = false;
+
     InlineKeyboardMarkup::Ptr keyboard_weather(new InlineKeyboardMarkup);
     InlineKeyboardMarkup::Ptr keyboard_course(new InlineKeyboardMarkup);
     InlineKeyboardButton::Ptr button_weather(new InlineKeyboardButton);
@@ -127,17 +125,7 @@ int main(int argc, char* argv[]) {
                              weather_city, course_valute, bot_commands);
 
     // Start bot
-    try {
-        printf("Bot username: %s\n", bot.getApi().getMe()->username.c_str());
-        bot.getApi().deleteWebhook();
-
-        while (true) {
-            printf("Long poll started\n");
-            long_poll.start();
-        }
-    } catch (TgException& e) {
-        printf("error: %s\n", e.what());
-    }
+    bot_options::start(bot, long_poll);
 
     return 0;
 }

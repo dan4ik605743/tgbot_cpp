@@ -12,6 +12,14 @@
 #include <vector>
 
 struct inline_keyboard {
+    static void init_keyboard(
+        TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
+        TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
+        TgBot::InlineKeyboardButton::Ptr& button_weather,
+        TgBot::InlineKeyboardButton::Ptr& button_course,
+        std::vector<TgBot::InlineKeyboardButton::Ptr>& row_weather,
+        std::vector<TgBot::InlineKeyboardButton::Ptr>& row_course);
+
     static void weather_comamnd(
         TgBot::Bot& bot,
         TgBot::TgLongPoll& long_poll,
@@ -29,14 +37,6 @@ struct inline_keyboard {
         bool& get_course_with_buttons,
         const std::string& course_valute,
         course& course);
-
-    static void init_keyboard(
-        TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
-        TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
-        TgBot::InlineKeyboardButton::Ptr& button_weather,
-        TgBot::InlineKeyboardButton::Ptr& button_course,
-        std::vector<TgBot::InlineKeyboardButton::Ptr>& row_weather,
-        std::vector<TgBot::InlineKeyboardButton::Ptr>& row_course);
 
     static void check_input(TgBot::Bot& bot,
                             TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,

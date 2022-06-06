@@ -1,4 +1,5 @@
 #include "bot_options/bot_options.hpp"
+#include "tgbot/TgException.h"
 #include "tgbot/types/BotCommand.h"
 
 #include <boost/locale.hpp>
@@ -140,4 +141,18 @@ void bot_options::check_input(TgBot::Bot& bot,
                                  "Не знаю такой команды. Вызови "
                                  "/help и посмотри что я могу.");
     });
+}
+
+void bot_options::start(TgBot::Bot& bot, TgBot::TgLongPoll& long_poll) {
+    try {
+        printf("Bot username: %s\n", bot.getApi().getMe()->username.c_str());
+        bot.getApi().deleteWebhook();
+
+        while (true) {
+            printf("Long poll started\n");
+            long_poll.start();
+        }
+    } catch (TgBot::TgException& ex) {
+        printf("error: %s\n", ex.what());
+    }
 }
