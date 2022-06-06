@@ -6,7 +6,7 @@
 
 class weather {
    public:
-    weather(const std::string& api);
+    explicit weather(const std::string& api);
 
     std::string get_city() const;
     void set_city(const std::string& city);
