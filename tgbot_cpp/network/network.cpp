@@ -3,10 +3,8 @@
 #include <curl/curl.h>
 #include <memory>
 
-static size_t writer(char* buffer,
-                     size_t size,
-                     size_t nmemb,
-                     std::string* html) {
+namespace {
+size_t writer(char* buffer, size_t size, size_t nmemb, std::string* html) {
     int result = 0;
 
     if (buffer != NULL) {
@@ -16,6 +14,7 @@ static size_t writer(char* buffer,
 
     return result;
 }
+}  // namespace
 
 std::string get_request(std::string link) {
     // CURL* curl;
