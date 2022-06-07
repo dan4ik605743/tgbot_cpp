@@ -4,7 +4,8 @@
 
 #include <boost/locale.hpp>
 
-void bot_options::init_commands(TgBot::Bot& bot) {
+namespace bot_options {
+void init_commands(TgBot::Bot& bot) {
     std::vector<TgBot::BotCommand::Ptr> commands;
 
     TgBot::BotCommand::Ptr cmdArray(new TgBot::BotCommand);
@@ -39,7 +40,7 @@ void bot_options::init_commands(TgBot::Bot& bot) {
     }
 }
 
-void bot_options::start_command(TgBot::Bot& bot) {
+void start_command(TgBot::Bot& bot) {
     bot.getEvents().onCommand("start", [&bot](TgBot::Message::Ptr message) {
         bot.getApi().sendMessage(message->chat->id,
                                  "Привет! Вызови /help и "
@@ -47,7 +48,7 @@ void bot_options::start_command(TgBot::Bot& bot) {
     });
 }
 
-void bot_options::help_command(TgBot::Bot& bot) {
+void help_command(TgBot::Bot& bot) {
     bot.getEvents().onCommand("help", [&bot](TgBot::Message::Ptr message) {
         bot.getApi().sendMessage(
             message->chat->id,
@@ -57,11 +58,11 @@ void bot_options::help_command(TgBot::Bot& bot) {
     });
 }
 
-void bot_options::weather_comamnd(TgBot::Bot& bot,
-                                  TgBot::TgLongPoll& long_poll,
-                                  bool& get_weather_city,
-                                  const std::string& weather_city,
-                                  weather& weather) {
+void weather_comamnd(TgBot::Bot& bot,
+                     TgBot::TgLongPoll& long_poll,
+                     bool& get_weather_city,
+                     const std::string& weather_city,
+                     weather& weather) {
     bot.getEvents().onCommand("weather", [&](TgBot::Message::Ptr message) {
         bot.getApi().sendMessage(message->chat->id, "Введите название города");
 
@@ -86,11 +87,11 @@ void bot_options::weather_comamnd(TgBot::Bot& bot,
     });
 }
 
-void bot_options::course_command(TgBot::Bot& bot,
-                                 TgBot::TgLongPoll& long_poll,
-                                 bool& get_course_valute,
-                                 const std::string& course_valute,
-                                 course& course) {
+void course_command(TgBot::Bot& bot,
+                    TgBot::TgLongPoll& long_poll,
+                    bool& get_course_valute,
+                    const std::string& course_valute,
+                    course& course) {
     bot.getEvents().onCommand("course", [&](TgBot::Message::Ptr message) {
         bot.getApi().sendMessage(message->chat->id,
                                  "Введите валюту.\nНапример: usd");
@@ -114,12 +115,12 @@ void bot_options::course_command(TgBot::Bot& bot,
     });
 }
 
-void bot_options::check_input(TgBot::Bot& bot,
-                              bool& get_weather_city,
-                              bool& get_course_valute,
-                              std::string& weather_city,
-                              std::string& course_valute,
-                              const std::vector<std::string>& bot_commands) {
+void check_input(TgBot::Bot& bot,
+                 bool& get_weather_city,
+                 bool& get_course_valute,
+                 std::string& weather_city,
+                 std::string& course_valute,
+                 const std::vector<std::string>& bot_commands) {
     bot.getEvents().onAnyMessage([&](TgBot::Message::Ptr message) {
         if (get_weather_city) {
             weather_city = message->text;
@@ -143,7 +144,7 @@ void bot_options::check_input(TgBot::Bot& bot,
     });
 }
 
-void bot_options::start(TgBot::Bot& bot, TgBot::TgLongPoll& long_poll) {
+void start(TgBot::Bot& bot, TgBot::TgLongPoll& long_poll) {
     try {
         printf("Bot username: %s\n", bot.getApi().getMe()->username.c_str());
         bot.getApi().deleteWebhook();
@@ -156,3 +157,4 @@ void bot_options::start(TgBot::Bot& bot, TgBot::TgLongPoll& long_poll) {
         printf("error: %s\n", ex.what());
     }
 }
+}  // namespace bot_options

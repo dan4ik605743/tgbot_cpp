@@ -9,32 +9,32 @@
 
 #include <string>
 
-struct bot_options {
-    static void init_commands(TgBot::Bot& bot);
+namespace bot_options {
+void init_commands(TgBot::Bot& bot);
 
-    static void start_command(TgBot::Bot& bot);
-    static void help_command(TgBot::Bot& bot);
+void start_command(TgBot::Bot& bot);
+void help_command(TgBot::Bot& bot);
 
-    static void weather_comamnd(TgBot::Bot& bot,
-                                TgBot::TgLongPoll& long_poll,
-                                bool& get_weather_city,
-                                const std::string& weather_city,
-                                weather& weather);
+void weather_comamnd(TgBot::Bot& bot,
+                     TgBot::TgLongPoll& long_poll,
+                     bool& get_weather_city,
+                     const std::string& weather_city,
+                     weather& weather);
 
-    static void course_command(TgBot::Bot& bot,
-                               TgBot::TgLongPoll& long_poll,
-                               bool& get_course_valute,
-                               const std::string& course_valute,
-                               course& course);
+void course_command(TgBot::Bot& bot,
+                    TgBot::TgLongPoll& long_poll,
+                    bool& get_course_valute,
+                    const std::string& course_valute,
+                    course& course);
 
-    static void check_input(TgBot::Bot& bot,
-                            bool& get_weather_city,
-                            bool& get_course_valute,
-                            std::string& weather_city,
-                            std::string& course_valute,
-                            const std::vector<std::string>& bot_commands);
+void check_input(TgBot::Bot& bot,
+                 bool& get_weather_city,
+                 bool& get_course_valute,
+                 std::string& weather_city,
+                 std::string& course_valute,
+                 const std::vector<std::string>& bot_commands);
 
-    static void start(TgBot::Bot& bot, TgBot::TgLongPoll& long_poll);
-};
+void start(TgBot::Bot& bot, TgBot::TgLongPoll& long_poll);
+}  // namespace bot_options
 
 #endif

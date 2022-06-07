@@ -1,13 +1,13 @@
 #include "inline_keyboard/inline_keyboard.hpp"
 #include "tgbot/types/CallbackQuery.h"
 
-void inline_keyboard::init_keyboard(
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
-    TgBot::InlineKeyboardButton::Ptr& button_weather,
-    TgBot::InlineKeyboardButton::Ptr& button_course,
-    std::vector<TgBot::InlineKeyboardButton::Ptr>& row_weather,
-    std::vector<TgBot::InlineKeyboardButton::Ptr>& row_course) {
+namespace inline_keyboard {
+void init_keyboard(TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
+                   TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
+                   TgBot::InlineKeyboardButton::Ptr& button_weather,
+                   TgBot::InlineKeyboardButton::Ptr& button_course,
+                   std::vector<TgBot::InlineKeyboardButton::Ptr>& row_weather,
+                   std::vector<TgBot::InlineKeyboardButton::Ptr>& row_course) {
     button_weather->text = "Красноярск";
     button_weather->callbackData = "krasnoyarsk_weather";
     button_course->text = "USD";
@@ -20,14 +20,13 @@ void inline_keyboard::init_keyboard(
     keyboard_course->inlineKeyboard.push_back(row_course);
 }
 
-void inline_keyboard::weather_comamnd(
-    TgBot::Bot& bot,
-    TgBot::TgLongPoll& long_poll,
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
-    bool& get_weather_city,
-    bool& get_weather_with_buttons,
-    const std::string& weather_city,
-    weather& weather) {
+void weather_comamnd(TgBot::Bot& bot,
+                     TgBot::TgLongPoll& long_poll,
+                     TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
+                     bool& get_weather_city,
+                     bool& get_weather_with_buttons,
+                     const std::string& weather_city,
+                     weather& weather) {
     bot.getEvents().onCommand("weather", [&](TgBot::Message::Ptr message) {
         bot.getApi().sendMessage(message->chat->id, "Введите название города",
                                  false, 0, keyboard_weather, "Markdown");
@@ -57,14 +56,13 @@ void inline_keyboard::weather_comamnd(
     });
 }
 
-void inline_keyboard::course_command(
-    TgBot::Bot& bot,
-    TgBot::TgLongPoll& long_poll,
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
-    bool& get_course_valute,
-    bool& get_course_with_buttons,
-    const std::string& course_valute,
-    course& course) {
+void course_command(TgBot::Bot& bot,
+                    TgBot::TgLongPoll& long_poll,
+                    TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
+                    bool& get_course_valute,
+                    bool& get_course_with_buttons,
+                    const std::string& course_valute,
+                    course& course) {
     bot.getEvents().onCommand("course", [&](TgBot::Message::Ptr message) {
         bot.getApi().sendMessage(message->chat->id,
                                  "Введите валюту.\nНапример: usd", false, 0,
@@ -93,14 +91,13 @@ void inline_keyboard::course_command(
     });
 }
 
-void inline_keyboard::check_input(
-    TgBot::Bot& bot,
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
-    TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
-    bool& get_weather_with_buttons,
-    bool& get_course_with_buttons,
-    weather& weather,
-    course& course) {
+void check_input(TgBot::Bot& bot,
+                 TgBot::InlineKeyboardMarkup::Ptr& keyboard_weather,
+                 TgBot::InlineKeyboardMarkup::Ptr& keyboard_course,
+                 bool& get_weather_with_buttons,
+                 bool& get_course_with_buttons,
+                 weather& weather,
+                 course& course) {
     bot.getEvents().onCallbackQuery([&](TgBot::CallbackQuery::Ptr query) {
         if (StringTools::startsWith(query->data, "krasnoyarsk_weather")) {
             get_weather_with_buttons = true;
@@ -124,3 +121,4 @@ void inline_keyboard::check_input(
         }
     });
 }
+}  // namespace inline_keyboard
