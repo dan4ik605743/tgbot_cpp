@@ -9,7 +9,7 @@ set(
     network/network.cpp 
     weather/weather.cpp
     course/course.cpp
-    bot_options/bot_options.cpp
+    bot/bot.cpp
 )
 
 set(
@@ -38,7 +38,7 @@ include_directories(
 )
 
 if(TGBOT_ENABLE_INLINE_KEYBOARD)
-    set(SRC_LIST ${SRC_LIST} inline_keyboard/inline_keyboard.cpp)
+    set(SRC_LIST ${SRC_LIST} bot_inline_keyboard/bot_inline_keyboard.cpp)
     add_definitions(-DTGBOT_ENABLE_INLINE_KEYBOARD)
 endif()
 
