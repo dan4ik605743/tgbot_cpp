@@ -15,6 +15,7 @@ set(
 set(
     LIB_LIST
     PRIVATE TgBot
+    PRIVATE fmt
     ${CMAKE_THREAD_LIBS_INIT} 
     ${OPENSSL_LIBRARIES} 
     ${Boost_LIBRARIES} 
@@ -38,7 +39,7 @@ include_directories(
 )
 
 if(TGBOT_ENABLE_INLINE_KEYBOARD)
-    set(SRC_LIST ${SRC_LIST} bot_inline_keyboard/bot_inline_keyboard.cpp)
+    set(SRC_LIST ${SRC_LIST} bot/bot_inline_keyboard/bot_inline_keyboard.cpp)
     add_definitions(-DTGBOT_ENABLE_INLINE_KEYBOARD)
 endif()
 

@@ -1,4 +1,6 @@
 #include "bot/bot.hpp"
+#include <cstdio>
+#include "fmt/core.h"
 #include "tgbot/TgException.h"
 #include "tgbot/types/BotCommand.h"
 
@@ -6,43 +8,30 @@
 
 bot::bot(const std::string& bot_token_str, const std::string& weather_api_str)
     : bot_(bot_token_str), long_poll_(bot_), weather_(weather_api_str) {
-    // TODO use for and map
     get_weather_city_ = false;
     get_course_valute_ = false;
 
-    bot_commands = {"start", "help", "weather", "course"};
+    bot_commands_ = {"start", "help", "weather", "course"};
+    bot_commands_description_ = {"Начать общение", "Посмотреть что умеет бот",
+                                 "Посмотреть прогноз погоды",
+                                 "Посмотреть курс валюты"};
 
     std::vector<TgBot::BotCommand::Ptr> commands;
+    std::vector<TgBot::BotCommand::Ptr> vectCmd;
 
-    TgBot::BotCommand::Ptr cmdArray(new TgBot::BotCommand);
-    cmdArray->command = "start";
-    cmdArray->description = "Начать общение";
-    commands.push_back(cmdArray);
-
-    cmdArray = TgBot::BotCommand::Ptr(new TgBot::BotCommand);
-    cmdArray->command = "help";
-    cmdArray->description = "Посмотреть что умеет бот";
-    commands.push_back(cmdArray);
-
-    cmdArray = TgBot::BotCommand::Ptr(new TgBot::BotCommand);
-    cmdArray->command = "weather";
-    cmdArray->description = "Посмотреть прогноз погоды";
-    commands.push_back(cmdArray);
-
-    cmdArray = TgBot::BotCommand::Ptr(new TgBot::BotCommand);
-    cmdArray->command = "course";
-    cmdArray->description = "Посмотреть курс валюты";
-    commands.push_back(cmdArray);
+    for (std::size_t x = 0; x != bot_commands_.size(); x++) {
+        TgBot::BotCommand::Ptr cmdArray(new TgBot::BotCommand);
+        cmdArray->command = bot_commands_[x];
+        cmdArray->description = bot_commands_description_[x];
+        commands.push_back(cmdArray);
+    }
 
     bot_.getApi().setMyCommands(commands);
-
-    std::vector<TgBot::BotCommand::Ptr> vectCmd;
     vectCmd = bot_.getApi().getMyCommands();
 
-    for (std::vector<TgBot::BotCommand::Ptr>::iterator it = vectCmd.begin();
-         it != vectCmd.end(); ++it) {
-        printf("cmd: %s -> %s\r", (*it)->command.c_str(),
-               (*it)->description.c_str());
+    for (const auto& cmd : bot_.getApi().getMyCommands()) {
+        fmt::print("cmd: {} -> {}\r", cmd->command.c_str(),
+                   cmd->description.c_str());
     }
 }
 
@@ -53,16 +42,11 @@ void bot::start() {
     course_command();
     check_input();
 
-    try {
-        printf("Bot username: %s\n", bot_.getApi().getMe()->username.c_str());
-        bot_.getApi().deleteWebhook();
-
-        while (true) {
-            printf("Long poll started\n");
-            long_poll_.start();
-        }
-    } catch (TgBot::TgException& ex) {
-        printf("error: %s\n", ex.what());
+    fmt::print("Bot username: {}\n", bot_.getApi().getMe()->username.c_str());
+    bot_.getApi().deleteWebhook();
+    while (true) {
+        fmt::print("Long poll started\n");
+        long_poll_.start();
     }
 }
 
@@ -143,7 +127,7 @@ void bot::check_input() {
             return;
         }
 
-        for (const auto& command : bot_commands) {
+        for (const auto& command : bot_commands_) {
             if ("/" + command == message->text) {
                 return;
             }

@@ -1,4 +1,5 @@
-#include "bot_inline_keyboard/bot_inline_keyboard.hpp"
+#include "bot/bot_inline_keyboard/bot_inline_keyboard.hpp"
+#include "fmt/core.h"
 #include "tgbot/TgException.h"
 #include "tgbot/types/CallbackQuery.h"
 
@@ -32,16 +33,11 @@ void bot_inline_keyboard::start() {
     check_input_keyboard();
     check_input();
 
-    try {
-        printf("Bot username: %s\n", bot_.getApi().getMe()->username.c_str());
-        bot_.getApi().deleteWebhook();
-
-        while (true) {
-            printf("Long poll started\n");
-            long_poll_.start();
-        }
-    } catch (TgBot::TgException& ex) {
-        printf("error: %s\n", ex.what());
+    fmt::print("Bot username: {}\n", bot_.getApi().getMe()->username.c_str());
+    bot_.getApi().deleteWebhook();
+    while (true) {
+        fmt::print("Long poll started\n");
+        long_poll_.start();
     }
 }
 
@@ -67,7 +63,7 @@ void bot_inline_keyboard::weather_command() {
                 get_weather_city_ = false;
             } else {
                 bot_.getApi().sendMessage(message->chat->id,
-                                         "Введен неверный город");
+                                          "Введен неверный город");
                 get_weather_city_ = false;
             }
         }
@@ -77,8 +73,8 @@ void bot_inline_keyboard::weather_command() {
 void bot_inline_keyboard::course_command() {
     bot_.getEvents().onCommand("course", [&](TgBot::Message::Ptr message) {
         bot_.getApi().sendMessage(message->chat->id,
-                                 "Введите валюту.\nНапример: usd", false, 0,
-                                 keyboard_course, "Markdown");
+                                  "Введите валюту.\nНапример: usd", false, 0,
+                                  keyboard_course, "Markdown");
         get_course_valute_ = true;
         long_poll_.start();
         if (get_course_with_buttons_) {
@@ -89,13 +85,13 @@ void bot_inline_keyboard::course_command() {
 
             if (course_.check_valute()) {
                 bot_.getApi().sendMessage(
-                    message->chat->id, course_.get_valute() + ": " +
-                                           std::to_string(course_.get_course()) +
-                                           " ₽");
+                    message->chat->id,
+                    course_.get_valute() + ": " +
+                        std::to_string(course_.get_course()) + " ₽");
                 get_course_valute_ = false;
             } else {
                 bot_.getApi().sendMessage(message->chat->id,
-                                         "Введена неверная валюта");
+                                          "Введена неверная валюта");
                 get_course_valute_ = false;
             }
         }

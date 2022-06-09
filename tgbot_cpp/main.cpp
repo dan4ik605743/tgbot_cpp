@@ -6,10 +6,12 @@
 #include <string>
 #include <vector>
 
+#include "fmt/core.h"
+
 #ifndef TGBOT_ENABLE_INLINE_KEYBOARD
 #include "bot/bot.hpp"
 #else
-#include "bot_inline_keyboard/bot_inline_keyboard.hpp"
+#include "bot/bot_inline_keyboard/bot_inline_keyboard.hpp"
 #endif
 
 #include "course/course.hpp"
@@ -18,8 +20,6 @@
 
 using namespace std;
 using namespace TgBot;
-
-vector<string> bot_commands = {"start", "help", "weather", "course"};
 
 int main(int argc, char* argv[]) {
     // Bot setup
@@ -49,12 +49,22 @@ int main(int argc, char* argv[]) {
 
         if (vm.count("token")) {
             ifstream bot_token_file(vm["token"].as<string>());
-            bot_token_file >> bot_token_str;
+            if (bot_token_file.is_open()) {
+                bot_token_file >> bot_token_str;
+            } else {
+                fmt::print("Error: while opening file {}: {}\n", vm["token"].as<string>(), strerror(errno));
+                return 1;
+            }
         }
 
         if (vm.count("api")) {
             ifstream weather_api_file(vm["api"].as<string>());
-            weather_api_file >> weather_api_str;
+            if (weather_api_file.is_open()) {
+                weather_api_file >> weather_api_str;
+            } else {
+                fmt::print("Error: while opening file {}: {}\n", vm["api"].as<string>(), strerror(errno));
+                return 1;
+            }
         }
 
         boost::program_options::notify(vm);
@@ -65,11 +75,15 @@ int main(int argc, char* argv[]) {
 
 #ifndef TGBOT_ENABLE_INLINE_KEYBOARD
     bot bot(bot_token_str, weather_api_str);
-    bot.start();
 #else
     bot_inline_keyboard bot(bot_token_str, weather_api_str);
-    bot.start();
 #endif
+
+    try {
+        bot.start();
+    } catch (TgBot::TgException& ex) {
+        cout << "Error: " << ex.what() << '\n';
+    }
 
     return 0;
 }

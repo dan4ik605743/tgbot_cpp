@@ -1,3 +1,6 @@
 [submodule "modules/tgbot-cpp"]
 	path = modules/tgbot-cpp
 	url = https://github.com/reo7sp/tgbot-cpp
+[submodule "modules/fmt"]
+	path = modules/fmt
+	url = https://github.com/fmtlib/fmt

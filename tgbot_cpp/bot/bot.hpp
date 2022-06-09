@@ -26,7 +26,8 @@ class bot {
     TgBot::TgLongPoll long_poll_;
     bool get_weather_city_;
     bool get_course_valute_;
-    std::vector<std::string> bot_commands;
+    std::vector<std::string> bot_commands_;
+    std::vector<std::string> bot_commands_description_;
     weather weather_;
     course course_;
 };

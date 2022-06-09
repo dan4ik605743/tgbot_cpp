@@ -16,3 +16,6 @@ endfunction(initialize_submodule)
 
 initialize_submodule(modules/tgbot-cpp)
 add_subdirectory(tgbot-cpp)
+
+initialize_submodule(modules/fmt)
+add_subdirectory(fmt)
