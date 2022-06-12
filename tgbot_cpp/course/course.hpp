@@ -6,8 +6,6 @@
 
 class course {
    public:
-    course();
-
     std::string get_valute();
     void set_valute(const std::string& valute);
     bool check_valute() const;
@@ -17,11 +15,12 @@ class course {
     float get_course() const;
 
    private:
-    std::string curl_data;
-    boost::json::value parsed_data;
+    std::string curl_data_;
+    boost::json::value parsed_data_;
 
-    std::string url;
-    std::string valute;
+    inline static std::string url_ =
+        "https://www.cbr-xml-daily.ru/daily_json.js";
+    std::string valute_;
 };
 
 #endif

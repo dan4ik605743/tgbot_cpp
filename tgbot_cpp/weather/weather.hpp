@@ -19,12 +19,12 @@ class weather {
     float get_wind() const;
 
    private:
-    std::string curl_data;
-    boost::json::value parsed_data;
+    std::string curl_data_;
+    boost::json::value parsed_data_;
 
-    std::string api;
-    std::string url;
-    std::string city;
+    std::string api_;
+    std::string url_;
+    std::string city_;
 };
 
 #endif

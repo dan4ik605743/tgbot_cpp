@@ -4,24 +4,24 @@
 #include <boost/json.hpp>
 
 weather::weather(const std::string& api) {
-    this->api = api;
+    api_ = api;
 }
 
 std::string weather::get_city() const {
-    return boost::json::value_to<std::string>(parsed_data.at("name"));
+    return boost::json::value_to<std::string>(parsed_data_.at("name"));
 }
 
 void weather::set_city(const std::string& city) {
-    this->city = city;
+    city_ = city;
 
-    url =
+    url_ =
         "http://api.openweathermap.org/data/2.5/"
         "weather?q=" +
-        city + "&appid=" + api + "&lang=ru";
+        city_ + "&appid=" + api_ + "&lang=ru";
 }
 
 bool weather::check_city() const {
-    if (parsed_data.at("cod").is_int64()) {
+    if (parsed_data_.at("cod").is_int64()) {
         return true;
     } else {
         return false;
@@ -29,21 +29,21 @@ bool weather::check_city() const {
 }
 
 void weather::refresh() {
-    curl_data = get_request(url);
-    parsed_data = boost::json::parse(curl_data);
+    curl_data_ = get_request(url_);
+    parsed_data_ = boost::json::parse(curl_data_);
 }
 
 std::string weather::get_weather() const {
     return boost::json::value_to<std::string>(
-        parsed_data.at("weather").at(0).at("description"));
+        parsed_data_.at("weather").at(0).at("description"));
 }
 
 int weather::get_temp() const {
     // kelvin_to_celsius
-    return (boost::json::value_to<float>(parsed_data.at("main").at("temp"))) -
+    return (boost::json::value_to<float>(parsed_data_.at("main").at("temp"))) -
            273;
 }
 
 float weather::get_wind() const {
-    return boost::json::value_to<float>(parsed_data.at("wind").at("speed"));
+    return boost::json::value_to<float>(parsed_data_.at("wind").at("speed"));
 }

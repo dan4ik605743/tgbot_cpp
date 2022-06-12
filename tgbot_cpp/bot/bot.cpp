@@ -1,10 +1,10 @@
 #include "bot/bot.hpp"
-#include <cstdio>
 #include "fmt/core.h"
 #include "tgbot/TgException.h"
 #include "tgbot/types/BotCommand.h"
 
 #include <boost/locale.hpp>
+#include <cstdio>
 
 bot::bot(const std::string& bot_token_str, const std::string& weather_api_str)
     : bot_(bot_token_str), long_poll_(bot_), weather_(weather_api_str) {

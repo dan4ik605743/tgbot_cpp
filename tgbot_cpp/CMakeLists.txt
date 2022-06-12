@@ -1,7 +1,7 @@
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(CURL REQUIRED)
-find_package(Boost 1.76.0 REQUIRED COMPONENTS system program_options locale REQUIRED)
+find_package(Boost 1.75.0 REQUIRED COMPONENTS system program_options locale REQUIRED)
 
 set(
     SRC_LIST

@@ -3,22 +3,18 @@
 
 #include <boost/json.hpp>
 
-course::course() {
-    url = "https://www.cbr-xml-daily.ru/daily_json.js";
-}
-
 std::string course::get_valute() {
-    return valute;
+    return valute_;
 }
 
 void course::set_valute(const std::string& valute) {
-    this->valute = valute;
+    valute_ = valute;
 }
 
 bool course::check_valute() const {
     try {
         boost::json::value_to<std::string>(
-            parsed_data.at("Valute").at(valute).at("ID"));
+            parsed_data_.at("Valute").at(valute_).at("ID"));
         return true;
     } catch (const std::exception&) {
         return false;
@@ -26,11 +22,11 @@ bool course::check_valute() const {
 }
 
 void course::refresh() {
-    curl_data = get_request(url);
-    parsed_data = boost::json::parse(curl_data);
+    curl_data_ = get_request(url_);
+    parsed_data_ = boost::json::parse(curl_data_);
 }
 
 float course::get_course() const {
     return boost::json::value_to<float>(
-        parsed_data.at("Valute").at(valute).at("Value"));
+        parsed_data_.at("Valute").at(valute_).at("Value"));
 }
