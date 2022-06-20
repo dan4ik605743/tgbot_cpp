@@ -20,6 +20,6 @@ jobs:
         sudo ./b2 install
 
     - name: Run CMake
-      run: mkdir build && cd build && cmake .. && cmake --build .
+      run: mkdir build && cd build && cmake -DENABLE_TESTS=true .. && cmake --build .
     - name: Run CTest
-      run: cd build && cmake -DENABLE_TESTS=true .. && cmake --build . && ctest .
+      run: cd build && ctest .

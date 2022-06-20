@@ -18,7 +18,7 @@ class course {
     std::string curl_data_;
     boost::json::value parsed_data_;
 
-    inline static std::string url_ =
+    inline const static std::string url_ =
         "https://www.cbr-xml-daily.ru/daily_json.js";
     std::string valute_;
 };
